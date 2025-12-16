@@ -11,14 +11,26 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $courses= Course::all();
-        return response()->json([
-            "message" => "Courses retrieved successfully",
-            "courses" => $courses
-        ]);
-    }
+public function index()
+{
+    $courses = Course::select(
+            'courses.id',
+            'courses.course_code',
+            'courses.title',
+            'courses.description',
+            'courses.duration',
+            'u.id as trainer_id',
+            'u.name as trainer_name'
+        )
+        ->join('users as u', 'courses.trainer_id', '=', 'u.id')
+        ->get();
+
+    return response()->json([
+        "message" => "Courses retrieved successfully",
+        "courses" => $courses
+    ]);
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -29,7 +41,7 @@ class CourseController extends Controller
             'course_code' => $request->course_code,
             'title' => $request->title,
             'description' => $request->description,
-            'trainer' => $request->trainer,
+            'trainer_id' => $request->trainer_id,
             'duration' => $request->duration,
         ]);
         return response()->json([

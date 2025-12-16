@@ -10,7 +10,7 @@ class Course extends Model
         'course_code',
         'title',
         'description',
-        'trainer',
+        'trainer_id',
         'duration',
     ];
 }
