@@ -71,4 +71,12 @@ class User extends Authenticatable implements JWTSubject // <-- Implement JWTSub
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function trainer()
+    {
+        return $this->belongsTo(User::class, 'trainer_id')
+                    ->where('role_id', 4)
+                    ->withDefault();
+    }
+
 }

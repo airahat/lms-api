@@ -55,12 +55,14 @@ public function index()
      */
     public function show(string $id)
     {
-        $course = Course::find($id);
-        if (!$course) {
+        $course = Course::with('trainer:id,name,role_id')->find($id);
+
+        if(!$course){
             return response()->json([
-                "message" => "Course not found"
+                'message'=> 'Course not found'
             ], 404);
         }
+
         return response()->json([
             "message" => "Course retrieved successfully",
             "course" => $course
