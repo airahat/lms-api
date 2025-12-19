@@ -85,5 +85,15 @@ public function index()
             'trainers' => $trainers
         ]);
     }
+    public function getStudents()
+    {
+        $students = User::select('id', 'name', 'email', 'address', 'phone')
+            ->where('role_id', 3)
+            ->get();
+        return response()->json([
+            'message' => 'students retrieved successfully',
+            'students' => $students
+        ]);
+    }
 
 }

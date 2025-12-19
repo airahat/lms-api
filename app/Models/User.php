@@ -78,5 +78,11 @@ class User extends Authenticatable implements JWTSubject // <-- Implement JWTSub
                     ->where('role_id', 4)
                     ->withDefault();
     }
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'student_id')
+                    ->where('role_id', 3)
+                    ->withDefault();
+    }
 
 }

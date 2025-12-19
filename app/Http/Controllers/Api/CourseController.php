@@ -42,7 +42,8 @@ public function index()
             'title' => $request->title,
             'description' => $request->description,
             'trainer_id' => $request->trainer_id,
-            'duration' => $request->duration,
+            'duration' => $request->duration, 
+            'course_status_id' => $request->course_status_id, 
         ]);
         return response()->json([
             "message" => "Course created successfully",

@@ -13,23 +13,30 @@ class Course extends Model
         'description',
         'trainer_id',
         'duration',
+        'course_status_id',
     ];
 
-    // Automatically append trainer_name to JSON
+   
     protected $appends = ['trainer_name'];
 
-    // DEFINE RELATIONSHIP
+    
     public function trainer()
     {
-        // This tells Laravel: Course belongs to a User via trainer_id
+      
         return $this->belongsTo(User::class, 'trainer_id')
-                    ->where('role_id', 4); // only users with role_id = 4
+                    ->where('role_id', 4); 
     }
 
-    // ACCESSOR to get trainer name
+    
     public function getTrainerNameAttribute()
     {
-        // trainer?->name works safely even if trainer is null
+       
         return $this->trainer?->name;
     }
+
+    public function lessons()
+{
+    return $this->hasMany(Lesson::class)->orderBy('lesson_order');
+}
+
 }
